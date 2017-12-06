@@ -1,0 +1,15 @@
+if TARGET_BCMHR3
+
+config SYS_BOARD
+	default "bcmhr3"
+
+config SYS_VENDOR
+	default "broadcom"
+
+config SYS_SOC
+	default "bcmhr3"
+
+config SYS_CONFIG_NAME
+	default "bcm_hurricane3"
+
+endif

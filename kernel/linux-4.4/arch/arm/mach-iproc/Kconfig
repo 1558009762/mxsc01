@@ -1,0 +1,77 @@
+#
+# Copyright (C) 2013, Broadcom Corporation. All Rights Reserved.
+# 
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+# SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+# OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+# CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+menu	"iProc SoC based Machine types"
+	depends on ARCH_IPROC
+
+choice
+	prompt "iProc SoC based board type"
+	default MACH_HX4	
+
+config MACH_HX4
+	bool "Support Broadcom Helix4 bring-up board"
+	help
+	  Support for the Broadcom Helix4 bring-up board.
+
+config MACH_HR2
+	bool "Support Broadcom Hurricane2 bring-up board"
+	help
+	  Support for the Broadcom Hurricane2 bring-up board.
+
+config MACH_KT2
+	bool "Support Broadcom Katana2 bring-up board"
+	help
+	  Support for the Broadcom Katana2 bring-up board.
+
+config MACH_GH
+	bool "Support Broadcom Greyhound bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Greyhound bring-up board.
+
+config MACH_SB2
+	bool "Support Broadcom Saber2 bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Saber2 bring-up board.
+
+config MACH_HR3
+	bool "Support Broadcom Hurricane3 bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Hurricane3 bring-up board.
+
+config MACH_GH2
+       bool "Support Broadcom Greyhound2 bring-up board"
+       select MACH_IPROC_P7
+       help
+         Support for the Broadcom Greyhound2 bring-up board.
+
+
+
+endchoice
+
+config MACH_IPROC_P7
+	bool "Support iProc Profile 7 architecture"
+	depends on (MACH_GH || MACH_SB2 || MACH_HR3)
+	help
+	  Support for iProc Profile 7 architecture.
+
+config MACH_IPROC_EMULATION
+	bool "Support  iProc emulation"
+	help
+	  Support for the iProc emulation.
+
+endmenu

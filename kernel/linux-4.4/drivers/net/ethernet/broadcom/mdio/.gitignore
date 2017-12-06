@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/.iproc_mdio.o.cmd
+/.iproc_mii.o.cmd
+/built-in.o
+/iproc_mdio.o
+/iproc_mii.o
+/modules.builtin
+/modules.order

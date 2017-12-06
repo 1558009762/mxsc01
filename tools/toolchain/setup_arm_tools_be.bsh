@@ -1,0 +1,58 @@
+#!/tools/bin/bash
+#****************************************************************************
+#
+#  Copyright (c) 2012 Broadcom Corporation
+#  All Rights Reserved
+#  No portions of this material may be reproduced in any form without the
+#  written permission of:
+#          Broadcom Corporation
+#          16251 Laguna Canyon Road
+#          Irvine, California 92618
+#  All information contained in this document is Broadcom Corporation
+#  company private, proprietary, and trade secret.
+#
+#****************************************************************************
+
+if [ $# -ne 0 ]; then
+
+if [ ! -f $1/bin/armeb-linux-gcc ]; then
+	echo ""	
+	echo "***** Error: *****"
+	echo "$1/bin/armeb-linux-gcc not found"
+	echo ""	
+else 
+	if [[  "$1" = /* ]]; then
+	#export CROSS_COMPILE=/opt/broadcom/iproc/usr/bin/armeb-linux-
+	export CROSS_COMPILE=$1/bin/armeb-linux-
+	export ARCH=arm
+	echo ""
+	echo "Exporting the sympbols..."
+	echo "export CROSS_COMPILE=$CROSS_COMPILE"
+	echo "export ARCH=$ARCH"
+
+	echo "Creating link for tools ... "
+	echo "ln -s $1  $PWD/buildroot/host/usr"
+	if [  -d $PWD/buildroot/host/usr ]; then
+		echo ""	
+		echo "***** Warning: *****"
+		echo "$PWD/buildroot/host/usr already exists if this is the correct path of the tools, then ignore this message, "
+		echo "  else delete  $PWD/buildroot/host/usr directory and rerun."
+		echo ""	
+		
+	else 
+		mkdir -p $PWD/buildroot/host
+		ln -s $1 $PWD/buildroot/host/usr
+	fi
+	else 
+	echo ""	
+	echo "***** Error: *****"
+	echo "$1 is not absoute path"
+	echo ""	
+	fi
+fi
+else
+	echo "Usage:"
+	echo "source setup_arm_tools_be.bsh <dir>"
+	echo " <dir> - eg: /opt/broadcom/iproc/usr  "
+	echo "  [NOTE] If the compiler is located at  /opt/broadcom/iproc/usr/bin/armeb-linux-gcc then <dir> is /opt/broadcom/iproc/usr  [full path required] "
+fi
