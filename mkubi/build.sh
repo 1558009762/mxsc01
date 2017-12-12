@@ -9,7 +9,7 @@
 #  Last Modified      	:2016/07/13 10:11
 #  Description    	:
 #
-mkimage -A arm -O linux -T kernel -n Image -a 0x61008000 -C none -d ./Image ./uImage
+mkimage -A arm -O linux -T kernel -n Image -a 0x64008000 -C none -d ./Image ./uImage
 
 cp uImage /tftpboot/
 exit
