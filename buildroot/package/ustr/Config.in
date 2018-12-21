@@ -1,6 +1,0 @@
-config BR2_PACKAGE_USTR
-	bool "ustr"
-	help
-	  A small, safe string library.
-
-	  http://www.and.org/ustr/

@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-# Start the USBD as virtual COM port (USB CDC-ACM)
-#
-
-insmod /lib/modules/linux/kernel/drivers/usb/gadget/udc/xgs_iproc_udc.ko
-modprobe g_serial
-

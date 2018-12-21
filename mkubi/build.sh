@@ -11,17 +11,11 @@
 #
 mkimage -A arm -O linux -T kernel -n Image -a 0x61008000 -C none -d ./Image ./uImage
 
-cp uImage /tftpboot/
-exit
-read -p "Input kernel version:" KVER
-./padmd5 bin/uImage $KVER 201 201
+#read -p "Input kernel version:" KVER
+#./padmd5 bin/uImage $KVER 201 201
 
-cp ../ramdisk/rootfs-ht201 ./bin/rootfs
-mkfs.ubifs -r ./bin -m 2048 -e 126976  -c  6979 -o ht201_main_kernel 
+#cp ../ramdisk/rootfs-ht201 ./bin/rootfs
+#mkfs.ubifs -r ./bin -m 2048 -e 126976  -c  6979 -o ht201_main_kernel 
 
-cp ../ramdisk/rootfs-ht201e ./bin/rootfs
-mkfs.ubifs -r ./bin -m 2048 -e 126976  -c  6979 -o ht201e_main_kernel 
-
-cp ht201e_main_kernel  /tftpboot/
-cp ht201_main_kernel  /tftpboot/
+#cp ht201_main_kernel  /home/work/tftpboot/
 
