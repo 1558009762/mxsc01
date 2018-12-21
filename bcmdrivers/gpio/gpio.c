@@ -410,8 +410,9 @@ iproc_gpio_irq_handler_ccb(int irq, void *dev)
     if(!val){
         return IRQ_NONE;
     }
+#ifdef POWERDOWN_ALARM	
 	poweroff_handle(1);
-
+#endif
 	max_pin = ourchip->pin_offset + ourchip->chip.ngpio;
     for (iter = ourchip->pin_offset; iter < max_pin; iter ++) {
         if (val & (1 << iter)) {
