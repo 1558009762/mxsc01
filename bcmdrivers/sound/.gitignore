@@ -1,0 +1,17 @@
+/.bcm535x.o.cmd
+/.bcm535x-i2s.o.cmd
+/.bcm535x-pcm.o.cmd
+/.built-in.o.cmd
+/.iproc_snd.ko.cmd
+/.iproc_snd.mod.o.cmd
+/.iproc_snd.o.cmd
+/bcm535x.o
+/bcm535x-i2s.o
+/bcm535x-pcm.o
+/built-in.o
+/iproc_snd.ko
+/iproc_snd.mod.c
+/iproc_snd.mod.o
+/iproc_snd.o
+/modules.builtin
+/modules.order

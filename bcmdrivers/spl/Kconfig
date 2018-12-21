@@ -1,0 +1,21 @@
+config IPROC_SPL
+	tristate "IPROC SPL support"
+	depends on ARCH_IPROC
+	default n
+	help
+	  iProc SoCs secure protection logic support.
+	  This driver supports the core functions of SPL:
+	  watchdog timers, reset monitors, frequency monitors.
+
+	  If unsure, say N.
+
+config IPROC_SPL_DEBUG
+	bool "IPROC SPL debug output"
+	depends on IPROC_SPL
+	default n
+	help
+	  iProc SoCs SPL driver debug info output.
+	  If yes, this will build debug info.
+	  To output these info, set module parameter debug=1.
+
+	  If unsure, say N.

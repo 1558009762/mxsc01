@@ -1,0 +1,27 @@
+config IPROC_CCB_WDT
+	tristate "CCB Watchdog Timer support"
+	select WATCHDOG
+	select WATCHDOG_CORE
+	select IPROC_SP805_WDT
+	select BRCM_PLATFORM_SP805_WDT
+	depends on ARCH_IPROC && (MACH_HR2 || MACH_HX4 || MACH_KT2)
+	help
+	  This selects a driver for the hardware watchdog on Broadcom
+	  iProc chips.
+
+config IPROC_CCG_WDT
+	tristate "CCG Watchdog Timer support"
+	select WATCHDOG
+	select WATCHDOG_CORE
+	select IPROC_SP805_WDT
+	select BRCM_PLATFORM_SP805_WDT
+	depends on ARCH_IPROC && MACH_IPROC_P7
+	help
+	  This selects a driver for the hardware watchdog on Broadcom
+	  iProc chips.
+
+config IPROC_SP805_WDT
+	tristate
+
+config BRCM_PLATFORM_SP805_WDT
+	tristate

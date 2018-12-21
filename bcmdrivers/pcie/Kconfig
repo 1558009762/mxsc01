@@ -1,0 +1,16 @@
+config IPROC_PCIE
+	tristate "PCIE support"
+	select PCI
+	select PCI_DOMAINS
+	depends on ARCH_IPROC
+	default n
+	help
+	  Add PCIe support
+	
+	  If unsure, say N.
+config IPROC_PCIE_AER
+	tristate "PCIE AER support"
+	depends on IPROC_PCIE
+	default n
+	help
+	  Add PCIe RC AER support

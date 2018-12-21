@@ -1,0 +1,9 @@
+menuconfig IPROC_PL330_DMA
+	tristate "IPROC DMA API Driver for PL330"
+	select DMA_ENGINE
+	depends on ARM_AMBA
+	default y 
+	help
+	  Select if your platform has one or more PL330 DMACs.
+	  You need to provide platform specific settings via
+	  platform_data for a dma-pl330 device.

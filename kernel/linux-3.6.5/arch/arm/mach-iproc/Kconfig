@@ -1,0 +1,54 @@
+menu	"iProc SoC based Machine types"
+	depends on MACH_IPROC
+
+choice
+	prompt "iProc SoC based board type"
+	default MACH_HX4	
+
+config MACH_HX4
+	bool "Support Broadcom Helix4 bring-up board"
+	help
+	  Support for the Broadcom Helix4 bring-up board.
+
+config MACH_HR2
+	bool "Support Broadcom Hurricane2 bring-up board"
+	help
+	  Support for the Broadcom Hurricane2 bring-up board.
+
+config MACH_KT2
+	bool "Support Broadcom Katana2 bring-up board"
+	help
+	  Support for the Broadcom Katana2 bring-up board.
+
+config MACH_GH
+	bool "Support Broadcom Greyhound bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Greyhound bring-up board.
+
+config MACH_SB2
+	bool "Support Broadcom Saber2 bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Saber2 bring-up board.
+
+config MACH_HR3
+	bool "Support Broadcom Hurricane3 bring-up board"
+	select MACH_IPROC_P7
+	help
+	  Support for the Broadcom Hurricane3 bring-up board.
+
+endchoice
+
+config MACH_IPROC_P7
+	bool "Support iProc Profile 7 architecture"
+	depends on (MACH_GH || MACH_SB2 || MACH_HR3)
+	help
+	  Support for iProc Profile 7 architecture.
+
+config MACH_IPROC_EMULATION
+	bool "Support  iProc emulation"
+	help
+	  Support for the iProc emulation.
+
+endmenu

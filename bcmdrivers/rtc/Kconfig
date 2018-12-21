@@ -1,0 +1,7 @@
+config IPROC_RTC
+	tristate "RTC support"
+	select RTC_CLASS 
+	default n
+	help
+	  Cygnus RTC support  	
+	  If unsure, say N.

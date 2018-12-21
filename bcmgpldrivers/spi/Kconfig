@@ -1,0 +1,7 @@
+menuconfig IPROC_SPI
+	tristate "IPROC SPI driver support"
+	default m 
+        select SPI
+        select SPI_MASTER
+        help
+          Say Y here if you want support for the SPI.

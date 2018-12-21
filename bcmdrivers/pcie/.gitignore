@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/.iproc_pcie.o.cmd
+/.pcie_iproc.o.cmd
+/built-in.o
+/iproc_pcie.o
+/modules.builtin
+/modules.order
+/pcie_iproc.o

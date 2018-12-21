@@ -1,0 +1,5 @@
+config SMC35X_LCD
+	tristate "IPROC smc35x lcd test driver support"
+	default no
+        help
+          Say Y here if you want support for the smc35x lcd sram driver.

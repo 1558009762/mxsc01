@@ -1,0 +1,8 @@
+config IPROC_DTE
+	tristate "IPROC DTE support"
+	depends on ARCH_IPROC && IPROC_GPIO && !IPROC_MSR
+	default n
+	help
+	  DTE support 
+	
+	  If unsure, say N.

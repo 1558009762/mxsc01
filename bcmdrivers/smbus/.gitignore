@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/.iproc_i2c.o.cmd
+/.iproc_smbus.o.cmd
+/built-in.o
+/iproc_i2c.o
+/iproc_smbus.o
+/modules.builtin
+/modules.order

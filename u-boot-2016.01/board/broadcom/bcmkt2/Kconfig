@@ -1,0 +1,15 @@
+if TARGET_BCMKT2
+
+config SYS_BOARD
+	default "bcmkt2"
+
+config SYS_VENDOR
+	default "broadcom"
+
+config SYS_SOC
+	default "bcmkt2"
+
+config SYS_CONFIG_NAME
+	default "bcm_katana2"
+
+endif

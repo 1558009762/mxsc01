@@ -1,0 +1,10 @@
+config IPROC_MDIO
+	tristate "MDIO support"
+	select NET
+	select PHYLIB
+	depends on ARCH_IPROC
+	default n
+	help
+	  MDIO support 
+	
+	  If unsure, say N.

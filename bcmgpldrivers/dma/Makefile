@@ -1,0 +1,1 @@
+obj-$(CONFIG_IPROC_PL330_DMA) += pl330.o

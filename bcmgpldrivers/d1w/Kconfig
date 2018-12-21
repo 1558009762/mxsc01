@@ -1,0 +1,10 @@
+menuconfig IPROC_DS1WM
+	tristate "IPROC 1-wire driver support"
+	select W1
+	default no
+        help
+          Say Y here if you want support for the 1-wire.
+
+if IPROC_DS1WM
+source "../../bcmgpldrivers/d1w/slave/Kconfig"
+endif

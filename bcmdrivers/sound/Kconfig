@@ -1,0 +1,40 @@
+# Helper to resolve issues with configs that have SPI enabled but I2C
+# modular, meaning we can't build the codec driver in with I2C support.
+# We use an ordered list of conditional defaults to pick the appropriate
+# setting - SPI can't be modular so that case doesn't need to be covered.
+
+config IPROC_SND
+	tristate "Sound/I2S support"
+	depends on ARCH_IPROC && IPROC_GSIO_SPI
+	default n
+	help
+	  Sound I2S support 
+	  This driver provides kernel-side support for a sound and I2S
+	  Number Generator.
+	
+	  If unsure, say N.
+
+config SND_BCM5830X_SOC
+	tristate
+	depends on ARCH_IPROC
+	help
+	  Say Y or M if you want to add audio support for CYGNUS
+
+	  If unsure, say N.
+
+config SND_BCM5830X_SOC_I2S
+	tristate
+
+config SND_BCM5830X_SVK
+	tristate "BCM5830X SVK Audio Support"
+	depends on ARCH_IPROC && IPROC_I2C && SOUND && SND_SOC && !IPROC_DTE
+	default n
+	select SND_BCM5830X_SOC
+	select SND_BCM5830X_SOC_I2S
+	select SND_SOC_TLV320AIC3X
+	select SND_SOC_WM8750
+	select SND_SOC_SPDIF
+	help
+	  Sound I2S support on BCM5830X SVK
+	
+	  If unsure, say N.

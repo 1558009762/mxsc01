@@ -1,0 +1,13 @@
+menu "Broadcom iProc GPL Drivers"
+	depends on ARCH_IPROC
+
+source "../../bcmgpldrivers/sound/codecs/wm8955/Kconfig"
+source "../../bcmgpldrivers/sound/codecs/wm8750/Kconfig"
+source "../../bcmgpldrivers/watchdog/Kconfig"
+source "../../bcmgpldrivers/d1w/Kconfig"
+source "../../bcmgpldrivers/spi/Kconfig"
+source "../../bcmgpldrivers/msr/Kconfig"
+source "../../bcmgpldrivers/dma/Kconfig"
+source "../../bcmgpldrivers/video/Kconfig"
+
+endmenu

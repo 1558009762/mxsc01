@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/built-in.o
+/modules.builtin
+/modules.order
+/.iproc_mtd_nand.o.cmd
+/.nand_iproc.o.cmd
+/iproc_mtd_nand.o
+/nand_iproc.o

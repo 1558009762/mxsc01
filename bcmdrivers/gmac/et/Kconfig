@@ -1,0 +1,13 @@
+config IPROC_GMAC
+	tristate "GMAC support "
+	select NETDEVICES
+	select PCI
+	select HND
+	select ET
+	select ET_ALL_PASSIVE_ON
+	depends on ARCH_IPROC
+	default n
+	help
+	  Add GMAC  support
+	
+	  If unsure, say N.

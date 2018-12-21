@@ -1,0 +1,6 @@
+config IPROC_BBL
+	tristate "BBL API support"
+	default n
+	help
+	  Cygnus BBL API support  	
+	  If unsure, say N.

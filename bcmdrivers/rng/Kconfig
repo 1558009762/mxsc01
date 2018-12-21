@@ -1,0 +1,11 @@
+config IPROC_RNG
+	tristate "RNG support"
+	select HW_RANDOM
+	depends on ARCH_IPROC
+	default n
+	help
+	  RNG support 
+	  This driver provides kernel-side support for a generic Random
+	  Number Generator.
+	
+	  If unsure, say N.

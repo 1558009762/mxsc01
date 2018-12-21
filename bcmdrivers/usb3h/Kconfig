@@ -1,0 +1,9 @@
+config IPROC_USB3H
+	tristate "USB3 BCM xHC support"
+	select USB_ARCH_HAS_XHCI
+	depends on ARCH_IPROC
+	default n
+	help
+	  Add USB3H support
+	
+	  If unsure, say N.

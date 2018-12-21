@@ -1,0 +1,7 @@
+config IPROC_SRA
+	tristate "Switch register access support"
+	default n
+	help
+	  This selects the switch register access and initialize the switch.
+	
+	  If unsure, say N.

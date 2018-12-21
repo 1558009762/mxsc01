@@ -1,0 +1,8 @@
+config IPROC_I2C
+    tristate "I2C support"
+    depends on ARCH_IPROC
+    default n
+    help
+      I2C support
+
+      If unsure, say N.

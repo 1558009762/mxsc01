@@ -1,0 +1,23 @@
+config IPROC_OTP
+	tristate "OTP support"
+	depends on ARCH_IPROC
+	default n
+	help
+	  OTP support 
+	
+	  If unsure, say N.
+
+config CYGNUS_SOTP
+	tristate "Cygnus SOTP support"
+	default n
+	help
+	  Cygnus SOTP support
+          If unsure, say N.
+
+config BRCM_CE_28nm_OTP
+	tristate "Broadcom CE 28nm OTP support"
+	default n
+	help
+	  Broadcom CE 28nm OTP driver 
+	
+	  If unsure, say N.

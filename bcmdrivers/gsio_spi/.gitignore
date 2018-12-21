@@ -1,0 +1,10 @@
+/.built-in.o.cmd
+/.iproc_gsio_spi.o.cmd
+/.iproc_spi.o.cmd
+/.spi_bcm_iproc.o.cmd
+/built-in.o
+/iproc_gsio_spi.o
+/iproc_spi.o
+/modules.builtin
+/modules.order
+/spi_bcm_iproc.o

@@ -1,0 +1,10 @@
+config IPROC_GSIO_SPI
+	tristate "GSIO SPI support"
+	depends on ARCH_IPROC
+	select SPI
+	select SPI_MASTER
+	default n
+	help
+	  SPI support 
+	
+	  If unsure, say N.

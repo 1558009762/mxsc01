@@ -1,0 +1,19 @@
+config IPROC_SMARTCARD
+	tristate "IPROC SmartCard support"
+	depends on ARCH_IPROC
+	default n
+	help
+	  iProc SoCs Smart Card support.
+	  This driver supports NXP8024 as coupler, also supports NXP8026 with I2C1.
+
+	  If unsure, say N.
+
+config IPROC_SMARTCARD_DEBUG
+	bool "IPROC SmartCard debug output"
+	depends on IPROC_SMARTCARD
+	default n
+	help
+	  iProc SoCs Smart Card driver debug info output.
+	  If yes, this will build debug info, to output it, also need to set module parameter debug=1
+
+	  If unsure, say N.

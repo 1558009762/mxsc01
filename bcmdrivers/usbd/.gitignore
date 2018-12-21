@@ -1,0 +1,11 @@
+/.built-in.o.cmd
+/built-in.o
+/modules.builtin
+/modules.order
+/.bcm_udc_dwc.ko.cmd
+/.bcm_udc_dwc.mod.o.cmd
+/.bcm_udc_dwc.o.cmd
+/bcm_udc_dwc.ko
+/bcm_udc_dwc.mod.c
+/bcm_udc_dwc.mod.o
+/bcm_udc_dwc.o

@@ -1,0 +1,10 @@
+/.bcm5301x_otp.o.cmd
+/.built-in.o.cmd
+/.iproc_cc_otp.o.cmd
+/.iproc_otp.o.cmd
+/bcm5301x_otp.o
+/built-in.o
+/iproc_cc_otp.o
+/iproc_otp.o
+/modules.builtin
+/modules.order

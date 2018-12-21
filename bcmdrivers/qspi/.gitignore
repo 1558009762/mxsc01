@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/built-in.o
+/modules.builtin
+/modules.order
+/.iproc_qspi.o.cmd
+/.qspi_iproc.o.cmd
+/iproc_qspi.o
+/qspi_iproc.o

@@ -1,0 +1,5 @@
+menuconfig IPROC_VIDEO
+	tristate "IPROC video driver support"
+	default n
+        help
+          Say Y here if you want support for the Camera driver.

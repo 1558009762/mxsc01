@@ -1,0 +1,110 @@
+menu "Broadcom iProc Drivers"
+	depends on ARCH_IPROC
+
+source "../../bcmdrivers/keypad/Kconfig"
+source "../../bcmdrivers/touch_screen/Kconfig"
+source "../../bcmdrivers/adc/Kconfig"
+source "../../bcmdrivers/rtc/Kconfig"
+source "../../bcmdrivers/timer/Kconfig"
+source "../../bcmdrivers/otp/Kconfig"
+source "../../bcmdrivers/bbl/Kconfig"
+source "../../bcmdrivers/rng/Kconfig"
+source "../../bcmdrivers/mdio/Kconfig"
+source "../../bcmdrivers/gsio_spi/Kconfig"
+source "../../bcmdrivers/sd/Kconfig"
+source "../../bcmdrivers/gpio/Kconfig"
+source "../../bcmdrivers/qspi/Kconfig"
+source "../../bcmdrivers/nand/Kconfig"
+source "../../bcmdrivers/kdrivers/nor/Kconfig"
+source "../../bcmdrivers/usb2h/Kconfig"
+source "../../bcmdrivers/usb3h/Kconfig"
+source "../../bcmdrivers/usbd/Kconfig"
+source "../../bcmdrivers/pcie/Kconfig"
+source "../../bcmdrivers/gmac/et/Kconfig"
+source "../../bcmdrivers/gmac/hnd/Kconfig"
+source "../../bcmdrivers/sound/Kconfig"
+source "../../bcmdrivers/smbus/Kconfig"
+source "../../bcmdrivers/sra/Kconfig"
+source "../../bcmdrivers/pmu/Kconfig"
+source "../../bcmdrivers/smartcard/Kconfig"
+source "../../bcmdrivers/spl/Kconfig"
+source "../../bcmdrivers/dte/Kconfig"
+source "../../bcmdrivers/smc35x_lcd/Kconfig"
+source "../../bcmdrivers/video/Kconfig"
+
+config BCM_IPROC_CA9_PREFETCH
+	tristate "CortexA9 cache auto-prefetching support"
+	depends on ARCH_IPROC
+	default n
+	help
+	  Enable iProc CortexA9 L1/L2 cache auto-prefetching support
+	
+	  If unsure, say N.
+
+config BCM_BARRIER_PERFORMANCE
+	bool "Linux memory barrier performance improvement"
+	depends on ARCH_IPROC
+	default n
+	help
+	  Enable linux memory barrier performance improvements
+	
+	  If unsure, say N.
+
+config BCM_MEM_OPTIMIZATION
+	bool "ARM Memory library optimization"
+	depends on ARCH_IPROC
+	default n
+	help
+	  Enable ARM memory library optimization
+	
+	  If unsure, say N.
+
+config BROADCOM_CUSTOM_SENDFILE
+	bool "Custom Sendfile optimization"
+	depends on ARCH_IPROC
+	default n
+	help
+	  Enable Broadcom Custom Sendfile optimization
+	
+	  If unsure, say N.
+
+config BCM_CUSTOM_RECVFILE
+	bool "Custom Receivefile optimization"
+	depends on ARCH_IPROC
+	default n
+	help
+	  Enable Broadcom Custom Receivefile optimization
+	
+	  If unsure, say N.
+
+config BCM_CUSTOM_RECVFILE_MAX_PERF
+# Enabling BCM_CUSTOM_RECVFILE_MAX_PERF gives maximum write performance 
+# at the risk of filesystem errors (due to skipping cache invalidation 
+# on writes) and exposure to A0 hardware errata for lazy interrupts.
+	bool "Custom Receivefile Max Performance optimization"
+	depends on ARCH_IPROC && BCM_CUSTOM_RECVFILE
+	default n
+	help
+	  Enable Broadcom Custom Receivefile Maximum Performance optimization
+	
+	  If unsure, say N.
+
+config BCM_GRO_ENABLE
+	bool "Broadcom GRO Enable"
+	depends on ARCH_IPROC && (ET_NAPI_POLL || ET_NAPI2_POLL)
+	default n
+	help
+	  Enable Broadcom Generic Receive Offload
+	
+	  If unsure, say N.
+
+
+### kdrivers
+##  kdrivers/nor integrated at ../kernel/linux-3.6.5/drivers/mtd/Makefile
+##  CFI driver required to be integrated before the bsp file builds
+
+### hook for gpl driver master file
+source "../../bcmgpldrivers/Kconfig"
+### hook for partner driver master file
+#source "../../bcmpartnerdrivers/Kconfig"
+endmenu

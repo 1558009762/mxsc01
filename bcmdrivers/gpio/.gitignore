@@ -1,0 +1,12 @@
+/.built-in.o.cmd
+/.gpio_cfg.o.cmd
+/.gpio.o.cmd
+/.gpiolib.o.cmd
+/.iproc_gpio.o.cmd
+/built-in.o
+/gpio_cfg.o
+/gpio.o
+/gpiolib.o
+/iproc_gpio.o
+/modules.builtin
+/modules.order

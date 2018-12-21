@@ -1,0 +1,114 @@
+#!/bin/sh
+
+TARGET=$1
+ARCH=$2
+SMP=$3
+PREEMPT=$4
+CC=$5
+
+#myver=v001r002
+#myver=v001r003 #1.add outband port mode&statistic 2.add powerdown alarm
+#myver=v001r004 #1.defalut outband port is down
+#myver=v001r005 #1.add auto update, by /etc/init.d/rcS
+#myver=v001r006 #1.add vsc8211 phy read/write interfac in /proc/iproc_eth0/eth0-phy
+#myver=v001r007 #1.delete broadcast printf
+#myver=v001r008 #1.NM port up/down frequently 2.add vitess phy api to read register
+#myver=v001r009 #1.rename all the image names eg. replace saber2-ubi.fs to ht201_main_kernel
+#myver=v001r011 #1.add core dump
+#myver=v001r012 #1.rm ipv6  2.modify hostname:Huahuan to localhost 3.update ramdisk Makefile
+#myver=v001r013 #1.update ramdisk etc/init.d/rcS, change core file
+myver=v001r014 #1.update ramdisk etc/init.d/rcS, add delay for mount ubifs
+
+vecho() { [ "${quiet}" = "silent_" ] || echo "$@" ; }
+
+# If compile.h exists already and we don't own autoconf.h
+# (i.e. we're not the same user who did make *config), don't
+# modify compile.h
+# So "sudo make install" won't change the "compiled by <user>"
+# do "compiled by root"
+
+if [ -r $TARGET -a ! -O include/generated/autoconf.h ]; then
+  vecho "  SKIPPED $TARGET"
+  exit 0
+fi
+
+# Do not expand names
+set -f
+
+# Fix the language to get consistent output
+LC_ALL=C
+export LC_ALL
+
+if [ -z "$KBUILD_BUILD_VERSION" ]; then
+	if [ -r .version ]; then
+		VERSION=`cat .version`
+	else
+		VERSION=0
+		echo 0 > .version
+	fi
+else
+	VERSION=$KBUILD_BUILD_VERSION
+fi
+
+if [ -z "$KBUILD_BUILD_TIMESTAMP" ]; then
+	TIMESTAMP=`date`
+else
+	TIMESTAMP=$KBUILD_BUILD_TIMESTAMP
+fi
+if test -z "$KBUILD_BUILD_USER"; then
+	LINUX_COMPILE_BY=$(whoami | sed 's/\\/\\\\/')
+else
+	LINUX_COMPILE_BY=$KBUILD_BUILD_USER
+fi
+if test -z "$KBUILD_BUILD_HOST"; then
+	LINUX_COMPILE_HOST=`hostname`
+else
+	LINUX_COMPILE_HOST=$KBUILD_BUILD_HOST
+fi
+
+UTS_VERSION="#$VERSION"
+CONFIG_FLAGS=""
+if [ -n "$SMP" ] ; then CONFIG_FLAGS="SMP"; fi
+if [ -n "$PREEMPT" ] ; then CONFIG_FLAGS="$CONFIG_FLAGS PREEMPT"; fi
+UTS_VERSION="$UTS_VERSION $CONFIG_FLAGS $TIMESTAMP"
+
+# Truncate to maximum length
+
+UTS_LEN=64
+UTS_TRUNCATE="cut -b -$UTS_LEN"
+
+# Generate a temporary compile.h
+
+( echo /\* This file is auto generated, version $VERSION \*/
+  if [ -n "$CONFIG_FLAGS" ] ; then echo "/* $CONFIG_FLAGS */"; fi
+  
+  echo \#define UTS_MACHINE \"$ARCH\"
+
+  echo \#define UTS_VERSION \"`echo $UTS_VERSION | $UTS_TRUNCATE`\"
+
+  echo \#define LINUX_COMPILE_BY \"`echo $LINUX_COMPILE_BY | $UTS_TRUNCATE`\"
+  echo \#define LINUX_COMPILE_HOST \"`echo $LINUX_COMPILE_HOST | $UTS_TRUNCATE`\"
+
+  echo \#define LINUX_COMPILER \"`$CC -v 2>&1 | tail -n 1`\"
+  echo \#define LINUX_MY_VER \"$myver\"
+) > .tmpcompile
+
+# Only replace the real compile.h if the new one is different,
+# in order to preserve the timestamp and avoid unnecessary
+# recompilations.
+# We don't consider the file changed if only the date/time changed.
+# A kernel config change will increase the generation number, thus
+# causing compile.h to be updated (including date/time) due to the 
+# changed comment in the
+# first line.
+
+if [ -r $TARGET ] && \
+      grep -v 'UTS_VERSION' $TARGET > .tmpver.1 && \
+      grep -v 'UTS_VERSION' .tmpcompile > .tmpver.2 && \
+      cmp -s .tmpver.1 .tmpver.2; then
+   rm -f .tmpcompile
+else
+   vecho "  UPD     $TARGET"
+   mv -f .tmpcompile $TARGET
+fi
+rm -f .tmpver.1 .tmpver.2

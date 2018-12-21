@@ -1,0 +1,10 @@
+config IPROC_SD
+	tristate "SDHCI support"
+	select MMC
+	select MMC_SDHCI
+	select MMC_SDHCI_IO_ACCESSORS
+	default n
+	help
+	  This selects the platform Secure Digital Host Controller Interface.
+	
+	  If unsure, say N.

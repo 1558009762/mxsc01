@@ -1,0 +1,2 @@
+
+obj-$(CONFIG_BRCM_PLATFORM_SP805_WDT) := sp805_wdt.o

@@ -1,0 +1,6 @@
+config IPROC_CCB_TIMER
+	tristate "ChipcommonB Timer support"
+	depends on ARCH_IPROC
+	help
+	  This selects a driver for the ChipcommonB SP804 Timer on Broadcom
+	  iProc chips.

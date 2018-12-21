@@ -1,0 +1,5 @@
+config IPROC_MSR
+	tristate "IPROC MSR driver support"
+	default M
+        help
+          Say Y here if you want support for the SPI MSR.

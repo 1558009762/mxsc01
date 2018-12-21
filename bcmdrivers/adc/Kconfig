@@ -1,0 +1,5 @@
+config IPROC_ADC
+	tristate "IPROC ADC driver support"
+	default no
+        help
+          Say Y here if you want support for the ADC.

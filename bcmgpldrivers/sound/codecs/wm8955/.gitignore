@@ -1,0 +1,13 @@
+/.built-in.o.cmd
+/.snd-soc-wm8955.ko.cmd
+/.snd-soc-wm8955.mod.o.cmd
+/.snd-soc-wm8955.o.cmd
+/.wm8955.o.cmd
+/built-in.o
+/modules.builtin
+/modules.order
+/snd-soc-wm8955.ko
+/snd-soc-wm8955.mod.c
+/snd-soc-wm8955.mod.o
+/snd-soc-wm8955.o
+/wm8955.o

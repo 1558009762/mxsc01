@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/.iproc_pmu.o.cmd
+/.iproc-pmu.o.cmd
+/built-in.o
+/iproc_pmu.o
+/iproc-pmu.o
+/modules.builtin
+/modules.order

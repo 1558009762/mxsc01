@@ -1,0 +1,8 @@
+/.built-in.o.cmd
+/built-in.o
+/modules.builtin
+/modules.order
+/.bcm-iproc.o.cmd
+/.iproc_usb2h.o.cmd
+/bcm-iproc.o
+/iproc_usb2h.o
