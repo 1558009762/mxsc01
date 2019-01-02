@@ -491,43 +491,118 @@ phy5461_init(uint eth_num, uint phyaddr)
 #else
 	if(0 == eth_num) /*eth1 should not set by zhangjiajie 2017-4-12*/
 	{
-		val = 0x2a30;	
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
-		udelay(1000);
-		val = 0x0212;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x8, &val);
-		udelay(1000);
-		val = 0x32b5;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
-		udelay(1000);
-		val = 0xf;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x2, &val);
-		udelay(1000);
-		val = 0x472a;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1, &val);
-		udelay(1000);
-		val = 0x8fa4;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
-		udelay(1000);
-		val = 0x2a30;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
-		udelay(1000);
-		val = 0x12;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x8, &val);
-		udelay(1000);
-		val = 0;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
-		udelay(1000);
+		//if((phyid0 == 0x0141) && ((phyid1 >> 8) == 0x00DD))//init 88e1512
+		{
+#if 0
+			/* As per Marvell Release Notes - Alaska 88E1510/88E1518/88E1512/88E1514 Rev A0, Errata Section 3.1 */
+			val = 0x00ff;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
+			val = 0x214B;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 17, &val);
+			udelay(1000);
+			val = 0x2144;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 16, &val);
+			udelay(1000);
+			val = 0x0C28;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 17, &val);
+			udelay(1000);
+			val = 0x2146;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 16, &val);
+			udelay(1000);
+			val = 0xB233;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 17, &val);
+			udelay(1000);
+			val = 0x214D;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 16, &val);
+			udelay(1000);
+			val = 0xCC0C;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 17, &val);
+			udelay(1000);
+			val = 0x2159;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 16, &val);
+			udelay(1000);
+			val = 0x0000;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
+#endif
+#if 0
+			/* SGMII-to-Copper mode initialization */
+			val = 18;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
+			phy5461_rd_reg(eth_num,phyaddr, 0, 0, 20, &val);
+			udelay(1000);
+			val = (val & 0xFFF8) | (0x0001);
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 20, &val);
+			udelay(1000);
+			val = val | 0x8000;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 20, &val);
+			udelay(1000);
+			val = 0x0000;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
 
-		val = 0x4101;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1e, &val);
-		udelay(1000);
-		val = 0x1940;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
-		udelay(1000);
-		val = 0x1140;
-		phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
-		printf("vsc8211 init done!\n");
+
+			/* trun off SGMII auto duplex */
+			val = 0x0001;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
+			val = val | 0x8000;
+			phy5461_rd_reg(eth_num,phyaddr, 0, 0,  0, &val);
+			udelay(1000);
+			val = (val & 0xEFFF) | 0x8000;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0,  0, &val);
+			udelay(1000);
+			val = 0x0000;
+			phy5461_wr_reg(eth_num,phyaddr, 0, 0, 22, &val);
+			udelay(1000);
+		
+#endif
+			printf("88e1512 init done! \n");
+		}
+	#if 0
+		else
+		{
+			val = 0x2a30;	
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
+			udelay(1000);
+			val = 0x0212;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x8, &val);
+			udelay(1000);
+			val = 0x32b5;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
+			udelay(1000);
+			val = 0xf;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x2, &val);
+			udelay(1000);
+			val = 0x472a;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1, &val);
+			udelay(1000);
+			val = 0x8fa4;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
+			udelay(1000);
+			val = 0x2a30;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
+			udelay(1000);
+			val = 0x12;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x8, &val);
+			udelay(1000);
+			val = 0;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1f, &val);
+			udelay(1000);
+
+			val = 0x4101;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x1e, &val);
+			udelay(1000);
+			val = 0x1940;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
+			udelay(1000);
+			val = 0x1140;
+			phy5461_wr_reg(eth_num,0x5, 0, 0, 0x0, &val);
+			printf("vsc8211 init done!\n");
+		}	
+		#endif
 	}
 	
 #endif

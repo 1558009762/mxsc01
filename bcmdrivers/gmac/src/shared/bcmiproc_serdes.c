@@ -237,7 +237,7 @@ serdes_reset_core(uint eth_num, uint phyaddr)
     data16 &= ~(DIGITAL4_MISC3_LANEDISABLE_MASK);
     serdes_wr_reg(eth_num, phyaddr, WC40_DIGITAL4_MISC3r, data16);
 
-	if ( phyaddr == 1 ) {
+	if ( phyaddr == 10 ) {
 		/* Reset the core */
 		/* Stop PLL Sequencer and configure the core into correct mode */
 		data16 = (XGXSBLK0_XGXSCONTROL_MODE_10G_IndLane <<
@@ -360,6 +360,12 @@ serdes_init(uint eth_num, uint speed)
 	uint16		serdes_id0, serdes_id1, serdes_id2;
 	unsigned int phyaddr = 1;
 
+	/* set eth1 as 100M, add by lihz - 2019.1.2 */
+    if(0 == eth_num)
+		phyaddr = 1;
+    else
+		phyaddr = 2;
+
 	NET_TRACE(("et%d: %s: phyaddr %d\n", eth_num, __FUNCTION__, phyaddr));
 
 	/* get serdes id */
@@ -399,10 +405,25 @@ serdes_init(uint eth_num, uint speed)
 	* bit0 = 0; in SGMII mode
 	*/
 	serdes_wr_reg(eth_num, phyaddr, XGXS16G_SERDESDIGITAL_CONTROL1000X1r, data16);
-
+#if 0
 	/* set autoneg */
 	data16 = MII_CTRL_AE | MII_CTRL_RAN;
 	serdes_wr_reg(eth_num, phyaddr, XGXS16G_COMBO_IEEE0_MIICNTLr, data16);
+#endif
+	//data16 = 0;
+	/* set eth1 as 100M, Full Duplex, modify by lihz - 2018.12.26 */
+	if(0 == eth_num)
+	{
+		/* set autoneg */
+		data16 = MII_CTRL_AE | MII_CTRL_RAN;
+		serdes_wr_reg(eth_num, phyaddr, XGXS16G_COMBO_IEEE0_MIICNTLr, data16);
+	}
+	else
+	{
+		/* set 100M, Full Duplex  */
+		data16 = MII_CTRL_SS_100 | MII_CTRL_FD;
+		serdes_wr_reg(eth_num, phyaddr, XGXS16G_COMBO_IEEE0_MIICNTLr, data16);
+	}
 
 	/* Disable 10G parallel detect */
 	data16 = 0;

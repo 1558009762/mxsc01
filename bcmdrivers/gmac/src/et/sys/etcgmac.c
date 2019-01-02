@@ -397,7 +397,7 @@ chipattach(etc_info_t *etc, void *osh, void *regsva)
 #if 0  /*modify vsc8211 phy addr to 0x5 by zhangjiajie 2017-2-22*/
 		etc->phyaddr = etc->unit+1;
 #else
-		etc->phyaddr = 0x5;
+		etc->phyaddr = 0x1;
 #endif
 		ET_ERROR(("et%d: chipattach: getvar(%s) not found set to %d\n", etc->unit, name, etc->phyaddr));
 	} else {
@@ -506,7 +506,7 @@ chipattach(etc_info_t *etc, void *osh, void *regsva)
 #if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
     if (gmac_last_interface(etc->unit)) {
         /* must init all serdes lanes, init port 49 (phy 3) */
-        serdes_init(etc->unit, 3);
+        //serdes_init(etc->unit, 3);
         serdes_start_pll(etc->unit, 1);
     }
 #endif
@@ -1357,7 +1357,7 @@ int linkstatus_change(int port,int speed,int status,int duplex)
         struct sk_buff * skb0 = NULL;
         struct nlmsghdr * nlhdr = NULL;
         int myspeed=0;
-        //printk("port=%d speed=%d status=%d duplex=%d\n",port,speed,status,duplex);
+        printk("port=%d speed=%d status=%d duplex=%d\n",port,speed,status,duplex);
         if(speed == 10)
                 myspeed = 1;
         else if(speed == 100)
@@ -1448,7 +1448,7 @@ void outband_phy_link_status_scan(unsigned long data)
 				serdes_init(ch->etc->unit, 1);
 			}
 		}
-		              printk("link status change:%d,speed:%d\n",link_status,speed);
+		printk("link status change:%d,speed:%d\n",link_status,speed);
 	}
 
 	link_scan_timer.expires = jiffies+(HZ*1);
@@ -1577,13 +1577,14 @@ chipinit(ch_t *ch, uint options)
     
 	/* turn on the emac */
 	gmac_enable(ch);
-
+#if 0
 	static int once = 0;
 	if((0 == etc->unit) && (0 == once))
 	{
 		outband_init(ch);
 		once ++;
 	}
+#endif
 }
 
 

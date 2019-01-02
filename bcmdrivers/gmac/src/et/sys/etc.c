@@ -38,6 +38,7 @@
 #include <bcmnvram.h>
 #include <mach/iproc_regs.h>
 #include "bcmiproc_serdes.h"
+
 #ifdef BCMDBG
 uint32 et_msg_level = 1;
 #else
@@ -455,6 +456,20 @@ etc_watchdog(etc_info_t *etc)
 
 	etc->now++;
 
+#if 1
+	if(etc->unit == 1)
+	{
+		etc->linkstate = TRUE;
+		etc->speed = 100;
+		etc->duplex = 1;
+		/* keep emac txcontrol duplex bit consistent with current phy duplex */
+		(*etc->chops->duplexupd)(etc->ch);
+		return;
+		
+	}
+#endif
+	
+
 	/* no local phy registers */
 	if (etc->phyaddr == EPHY_NOREG) {
 		etc->linkstate = TRUE;
@@ -472,7 +487,9 @@ etc_watchdog(etc_info_t *etc)
 	}
 
 #if defined(CONFIG_IPROC_SDK_MGT_PORT_HANDOFF)
-#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
+//#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
+#if defined(CONFIG_MACH_HX4) 
+
 	if ( !gmac_has_mdio_access()) {
         /* we can't monitor link so force link up */
         /* if GMAC does not have access to MDIO then exit */
@@ -577,7 +594,7 @@ etc_watchdog(etc_info_t *etc)
 					//		serdes_init(etc->unit, 1);
 					}
 					linkstatus_change(0, 0, etc->linkstate, 0);
-					printk("link status change:%d,speed:%d duplex:%d\n",etc->linkstate,etc->speed,etc->duplex);
+					//printk("link status change:%d,speed:%d duplex:%d\n",etc->linkstate,etc->speed,etc->duplex);
 			}
 #endif
 #ifdef CONFIG_SERDES_ASYMMETRIC_MODE

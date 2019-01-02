@@ -2170,6 +2170,8 @@ et_is_link_up(et_info_t *et)
 	return netif_carrier_ok(et->dev);
 }
 
+
+extern int outband_init(ch_t *ch);
 /**********************************************************************
  *  iproc_gmac_drv_probe(device)
  *
@@ -2384,6 +2386,15 @@ static int iproc_gmac_drv_probe(struct platform_device* pldev)
     printk("%s: %s %s\n", dev->name, name, EPI_VERSION_STR);
 
     eth_mac_proc_create(dev);	
+
+	/* init outband netlink, by lihz - 2019.1.2 */
+	//static int once = 0;
+	if(unit == 0)
+	{
+		outband_init(0);
+		//once ++;
+	}
+
 
     ET_TRACE(("%s: exit\n", __FUNCTION__));
 
