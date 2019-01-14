@@ -456,20 +456,6 @@ etc_watchdog(etc_info_t *etc)
 
 	etc->now++;
 
-#if 0
-	if(etc->unit == 1)
-	{
-		etc->linkstate = TRUE;
-		etc->speed = 100;
-		etc->duplex = 1;
-		/* keep emac txcontrol duplex bit consistent with current phy duplex */
-		(*etc->chops->duplexupd)(etc->ch);
-		return;
-		
-	}
-#endif
-	
-
 	/* no local phy registers */
 	if (etc->phyaddr == EPHY_NOREG) {
 		etc->linkstate = TRUE;
@@ -487,9 +473,7 @@ etc_watchdog(etc_info_t *etc)
 	}
 
 #if defined(CONFIG_IPROC_SDK_MGT_PORT_HANDOFF)
-//#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
-#if defined(CONFIG_MACH_HX4) 
-
+#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
 	if ( !gmac_has_mdio_access()) {
         /* we can't monitor link so force link up */
         /* if GMAC does not have access to MDIO then exit */
