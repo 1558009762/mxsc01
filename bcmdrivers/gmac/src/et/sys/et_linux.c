@@ -2170,7 +2170,7 @@ et_is_link_up(et_info_t *et)
 	return netif_carrier_ok(et->dev);
 }
 
-
+/**/
 extern int outband_init(ch_t *ch);
 /**********************************************************************
  *  iproc_gmac_drv_probe(device)

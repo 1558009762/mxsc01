@@ -43,4 +43,7 @@ extern int phy5461_link_get(uint eth_num, uint phyaddr, int *link);
 extern int phy5461_enable_set(uint eth_num, uint phyaddr, int enable);
 extern int phy5461_speed_get(uint eth_num, uint phyaddr, int *speed, int *duplex);
 
+extern int switch_dm8606c_init();
+
+
 #endif	/* _bcm_iproc_phy5461s_h_ */

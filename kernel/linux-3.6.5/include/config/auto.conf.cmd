@@ -605,6 +605,7 @@ deps_config := \
 	drivers/misc/eeprom/Kconfig \
 	drivers/misc/c2port/Kconfig \
 	drivers/misc/Kconfig \
+	drivers/hhpci/Kconfig \
 	drivers/s390/block/Kconfig \
 	drivers/block/drbd/Kconfig \
 	drivers/block/mtip32xx/Kconfig \

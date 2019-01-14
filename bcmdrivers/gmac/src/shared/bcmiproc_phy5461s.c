@@ -860,3 +860,94 @@ phy5461_speed_get(uint eth_num, uint phyaddr, int *speed, int *duplex)
 
     return(rv);
 }
+
+/* ###################  add DM8606C config, by lihz - 2019.1.7  ################### */
+
+/*
+	port 0/1/2 is connected to RJ45,
+	port 4 is CPU port
+
+*/
+
+int switch_dm8606c_init()
+{
+	uint16	val = 0;
+	uint16	id0, id1, id2;
+	uint eth_num = 0;
+	uint phyaddr = 0;
+
+	/* read switch id */
+	phyaddr = 0x18;
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x10, &id0);
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x11, &id1);
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x12, &id2);
+	udelay(1000);
+	printf("%s Switch ChipID: 0x%04x:0x%04x;0x%04x\n", __FUNCTION__, id0, id1, id2);
+
+	/* set port 4 as cpu port */
+	phyaddr = 0x10;
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x13, &val);/* 213H */
+	udelay(1000);
+	val = (val & 0xFFF8) | (0x0004);
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x13, &val);/* 213H */
+	udelay(1000);
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x13, &val);/* 213H */
+	printf("##### cpu port: %x \n", val);
+
+	/* vlan type is port vlan */
+	phyaddr = 0x11;
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x1E, &val);/* 23EH */
+	udelay(1000);
+	//val = (val| 0x0001);
+	val = (val & 0xFFFE);
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x1E, &val);/* 23EH */
+	udelay(1000);
+
+	/* set port4 mac control register, force, 100M, full duplex, link on */
+	phyaddr = 0x18;
+	//phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x14, &val);/* 314H */
+	//udelay(1000);
+	//val = (val & 0xFFF0) | (0x0008);
+	val = 0x0108;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x14, &val);/* 314H */
+	udelay(1000);
+	phy5461_rd_reg(eth_num,phyaddr, 0, 0, 0x14, &val);/* 314H */
+	printf("##### port4 mac control: %x \n", val);
+
+	/* set port0/1/2/4 PVID as 0x0009 */
+	phyaddr = 0x08;
+	val = 0x0009;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x16, &val);/* 116H */
+	udelay(1000);
+	phyaddr = 0x09;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x16, &val);/* 136H */
+	udelay(1000);
+	phyaddr = 0x0A;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x16, &val);/* 156H */
+	udelay(1000);
+	phyaddr = 0x0C;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x16, &val);/* 196H */
+	udelay(1000);
+	
+	/* set port4 output with vlan tag */
+	//phyaddr = 0x0C;
+	//val = 0x60;
+	//phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x17, &val);
+
+	/* set vlan, port0/1/2/4 is member of vlan 9 */
+	phyaddr = 0x12;
+	val = 0x0009;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x10, &val);/* 250H */
+
+	udelay(1000);
+	phyaddr = 0x13;
+	val = 0x1717;
+	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x10, &val);/* 270H */
+	udelay(1000);
+
+}
+
+
+
+
+

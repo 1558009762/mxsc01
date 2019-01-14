@@ -14,6 +14,9 @@ source "drivers/pnp/Kconfig"
 
 source "drivers/block/Kconfig"
 
+# add by lihz - 2018.12.21
+source "drivers/hhpci/Kconfig"
+
 # misc before ide - BLK_DEV_SGIIOC4 depends on SGI_IOC4
 
 source "drivers/misc/Kconfig"

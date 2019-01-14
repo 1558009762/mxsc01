@@ -2369,6 +2369,13 @@ chipphyinit(ch_t *ch, uint phyaddr)
 	ET_TRACE(("et%d: chipphyinit: phyaddr %d\n", ch->etc->unit, phyaddr));
 #if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2) || defined(CONFIG_MACH_SB2))
 	phy5461_init(ch->etc->unit, phyaddr);
+	/* only eth1 need to init switch dm8606c, add by lihz - 2019.1.9 */
+	if(ch->etc->unit == 1)
+	{
+		switch_dm8606c_init();
+	}
+	
+
 #if 0 /*delete by zhangjiajie 2017-2-22*/
 	serdes_init(ch->etc->unit, phyaddr);
 #endif

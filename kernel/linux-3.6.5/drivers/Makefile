@@ -13,6 +13,8 @@ obj-$(CONFIG_PCI)		+= pci/
 obj-$(CONFIG_PARISC)		+= parisc/
 obj-$(CONFIG_RAPIDIO)		+= rapidio/
 obj-y				+= video/
+# add by lihz - 2018.12.21
+obj-y				+= hhpci/
 obj-y				+= idle/
 obj-$(CONFIG_ACPI)		+= acpi/
 obj-$(CONFIG_SFI)		+= sfi/
