@@ -22,32 +22,83 @@ extern void iproc_save_shmoo_values(void);
 extern int linux_usbh_init(void);
 extern void ethHw_serdesEarlyInit(int idx);
 
+
+#define IPROC_GPIO_CCA_BASE 0x18000060
+#define CMIC_GPIO_CCB_BASE  0x48002000
+
+/* 
+ * Chip level GPIO 0-3 from CMICD, 
+ * GPIO 4-11 from ChipcommonA gpio pin 0 - 7
+ * Hence the base is 0 and the number is 11.
+ */
+
+#define REGOFFSET_GPIO_DIN          0x000 /* GPIO Data in register */
+#define REGOFFSET_GPIO_DOUT         0x004 /* GPIO Data out register */
+#define REGOFFSET_GPIO_EN           0x008 /* GPIO driver enable register */
+
+
 #if 1
 void bcmgpio_directory_output(int gpio, unsigned char val)
 {
 	u32 read = 0;
+	u32 gpiobase = 0;
 
-	read = reg32_read((volatile u32 *)0x1800a008);
+	if(gpio <= 3)//cmic gpio
+	{
+		gpiobase = CMIC_GPIO_CCB_BASE;
+		reg32_write((volatile u32 *)(gpiobase + 0x28), 0); // set CMIC_GP_AUX_SEL 
+	}
+	else //chipcommon A gpio
+	{
+		gpiobase = IPROC_GPIO_CCA_BASE;
+		gpio = gpio - 4;
+	}
+
+	read = reg32_read((volatile u32 *)(gpiobase + REGOFFSET_GPIO_EN));
 	read |= 1 << gpio;
-	reg32_write((volatile u32 *)0x1800a008, read);
+	reg32_write((volatile u32 *)(gpiobase + REGOFFSET_GPIO_EN), read);
 		
 	read = 0;
-	read = reg32_read((volatile u32 *)0x1800a004);
+	read = reg32_read((volatile u32 *)(gpiobase + REGOFFSET_GPIO_DOUT));
 	read = val ? (read |(1<<gpio)):(read &(~(1<<gpio)));
-	reg32_write((volatile u32 *)0x1800a004, read);
+	reg32_write((volatile u32 *)(gpiobase + REGOFFSET_GPIO_DOUT), read);
 }
 void bcmgpio_directory_input(int gpio)
 {
 	u32 read = 0;
+	u32 gpiobase = 0;
 
-	read = reg32_read((volatile u32 *)0x1800a008);
+	if(gpio <= 3)//cmic gpio
+	{
+		gpiobase = CMIC_GPIO_CCB_BASE;
+		reg32_write((volatile u32 *)(gpiobase + 0x28), 0); // set CMIC_GP_AUX_SEL
+	}
+	else //chipcommon A gpio
+	{
+		gpiobase = IPROC_GPIO_CCA_BASE;
+		gpio = gpio - 4;
+	}
+
+	read = reg32_read((volatile u32 *)(gpiobase + REGOFFSET_GPIO_EN));
 	read &= ~(1 << gpio);
-	reg32_write((volatile u32 *)0x1800a008, read);
+	reg32_write((volatile u32 *)(gpiobase + REGOFFSET_GPIO_EN), read);
 }	
 unsigned int bcmgpio_get_value(int gpio)
 {
 	u32 read = 0;
-	read = reg32_read((volatile u32 *)0x1800a000);
+	u32 gpiobase = 0;
+
+	if(gpio <= 3)//cmic gpio
+	{
+		gpiobase = CMIC_GPIO_CCB_BASE;
+		reg32_write((volatile u32 *)(gpiobase + 0x28), 0); // set CMIC_GP_AUX_SEL
+	}
+	else //chipcommon A gpio
+	{
+		gpiobase = IPROC_GPIO_CCA_BASE;
+		gpio = gpio - 4;
+	}
+	read = reg32_read((volatile u32 *)(gpiobase + REGOFFSET_GPIO_DIN));
 	printf("read=0x%08x\n",read);
 	return read & (1 << gpio)?1:0;
 }
@@ -56,11 +107,49 @@ unsigned int bcmgpio_get_value(int gpio)
  /*add by lihz 2018-12-20*/
  static void reset_by_gpio()
  {
+ 
+ int i;
+ 
+ for(i = 0; i < 12; ++i)
+	 bcmgpio_directory_output(i, 1);
+ return ;
+	/* init cpu extern interupt from gpio5/6 */
+ 	bcmgpio_directory_output(5, 1);
+	bcmgpio_directory_output(6, 1);
+	
+ 	/* enable cpu read/write flash */
+	bcmgpio_directory_output(0, 1);
+	/* disable watch dog */
+	bcmgpio_directory_output(1, 1);
+	/* enable 7A75T read/write flash */
+	bcmgpio_directory_output(4, 1);
+	/* enable XCKU60 read/write flash */
+	bcmgpio_directory_output(9, 1);
+	
+	/* reset 7A75T */
+	bcmgpio_directory_output(3, 0);
+	udelay(20000);
+	bcmgpio_directory_output(3, 1);
+	/* reset XCKU60 */
+	bcmgpio_directory_output(8, 0);
+	udelay(20000);
+	bcmgpio_directory_output(8, 1);
+	/* reset DM8606C */
+	bcmgpio_directory_output(10, 0);
+	udelay(20000);
+	bcmgpio_directory_output(10, 1);
+	/* reset 88E1512 */
+	bcmgpio_directory_output(11, 0);
+	udelay(20000);
+	bcmgpio_directory_output(11, 1);
+
+#if 0
 	int i;
 
-	/* init all gpio to input */
 	for(i = 0; i < 12; ++i)
-		bcmgpio_directory_input(i);
+		bcmgpio_directory_output(i, 0);
+
+#endif
 
  }
 
