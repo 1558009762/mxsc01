@@ -456,7 +456,7 @@ etc_watchdog(etc_info_t *etc)
 
 	etc->now++;
 
-#if 1
+#if 0
 	if(etc->unit == 1)
 	{
 		etc->linkstate = TRUE;
