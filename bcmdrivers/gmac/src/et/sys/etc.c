@@ -473,7 +473,7 @@ etc_watchdog(etc_info_t *etc)
 	}
 
 #if defined(CONFIG_IPROC_SDK_MGT_PORT_HANDOFF)
-#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
+#if (defined(CONFIG_MACH_HX4)/* || defined(CONFIG_MACH_KT2)*/)
 	if ( !gmac_has_mdio_access()) {
         /* we can't monitor link so force link up */
         /* if GMAC does not have access to MDIO then exit */

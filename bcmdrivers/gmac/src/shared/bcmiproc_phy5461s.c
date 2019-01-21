@@ -945,9 +945,7 @@ int switch_dm8606c_init()
 	phy5461_wr_reg(eth_num,phyaddr, 0, 0, 0x10, &val);/* 270H */
 	udelay(1000);
 
+	return 0;
 }
-
-
-
 
 

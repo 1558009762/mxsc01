@@ -78,11 +78,16 @@ ifeq ($(CONFIG_MACH_KT2),y)
 HND_OBJS += $(src)/$(SHARED)/bcmiproc_serdes.o
 hnd-objs += $(SHARED)/bcmiproc_serdes.o
 
+# add netlink, add by lihz - 2019.1.18
+HND_OBJS += $(src)/$(SHARED)/netlink.o
+hnd-objs += $(SHARED)/netlink.o
+
 HND_OBJS += $(src)/$(SHARED)/bcmiproc_phy5461s.o
 hnd-objs += $(SHARED)/bcmiproc_phy5461s.o
 
 HND_OBJS += $(src)/$(SHARED)/kt2_erom.o
 hnd-objs += $(SHARED)/kt2_erom.o
+
 endif
 
 ifeq ($(CONFIG_MACH_HR2),y)
@@ -108,7 +113,6 @@ hnd-objs += $(SHARED)/bcmiproc_phy5481.o
 HND_OBJS += $(src)/$(SHARED)/hr3_erom.o
 hnd-objs += $(SHARED)/hr3_erom.o
 endif
-
 #$(src)/shared_ksyms.c: $(src)/shared_ksyms.sh $(HND_OBJS)
 #	sh -e $< $(HND_OBJS) > $@
 

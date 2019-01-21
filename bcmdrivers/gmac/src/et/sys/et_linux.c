@@ -2172,6 +2172,7 @@ et_is_link_up(et_info_t *et)
 
 /**/
 extern int outband_init(ch_t *ch);
+
 /**********************************************************************
  *  iproc_gmac_drv_probe(device)
  *
@@ -2395,8 +2396,7 @@ static int iproc_gmac_drv_probe(struct platform_device* pldev)
 		//once ++;
 	}
 
-
-    ET_TRACE(("%s: exit\n", __FUNCTION__));
+	ET_TRACE(("%s: exit\n", __FUNCTION__));
 
 	return 0;
 
