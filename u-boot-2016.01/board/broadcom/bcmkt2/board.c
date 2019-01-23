@@ -107,16 +107,11 @@ unsigned int bcmgpio_get_value(int gpio)
  /*add by lihz 2018-12-20*/
  static void reset_by_gpio()
  {
- 
- int i;
- 
- for(i = 0; i < 12; ++i)
-	 bcmgpio_directory_output(i, 1);
- return ;
 	/* init cpu extern interupt from gpio5/6 */
  	bcmgpio_directory_output(5, 1);
 	bcmgpio_directory_output(6, 1);
-	
+
+#if 0	
  	/* enable cpu read/write flash */
 	bcmgpio_directory_output(0, 1);
 	/* disable watch dog */
@@ -125,11 +120,11 @@ unsigned int bcmgpio_get_value(int gpio)
 	bcmgpio_directory_output(4, 1);
 	/* enable XCKU60 read/write flash */
 	bcmgpio_directory_output(9, 1);
-	
+#endif	
 	/* reset 7A75T */
-	bcmgpio_directory_output(3, 0);
-	udelay(20000);
-	bcmgpio_directory_output(3, 1);
+	//bcmgpio_directory_output(3, 0);
+	//udelay(20000);
+	//bcmgpio_directory_output(3, 1);
 	/* reset XCKU60 */
 	bcmgpio_directory_output(8, 0);
 	udelay(20000);
@@ -142,14 +137,6 @@ unsigned int bcmgpio_get_value(int gpio)
 	bcmgpio_directory_output(11, 0);
 	udelay(20000);
 	bcmgpio_directory_output(11, 1);
-
-#if 0
-	int i;
-
-	for(i = 0; i < 12; ++i)
-		bcmgpio_directory_output(i, 0);
-
-#endif
 
  }
 
