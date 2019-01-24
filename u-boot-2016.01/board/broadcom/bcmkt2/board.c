@@ -126,9 +126,9 @@ unsigned int bcmgpio_get_value(int gpio)
 	//udelay(20000);
 	//bcmgpio_directory_output(3, 1);
 	/* reset XCKU60 */
-	bcmgpio_directory_output(8, 0);
-	udelay(20000);
-	bcmgpio_directory_output(8, 1);
+	//bcmgpio_directory_output(8, 0);
+	//udelay(20000);
+	//bcmgpio_directory_output(8, 1);
 	/* reset DM8606C */
 	bcmgpio_directory_output(10, 0);
 	udelay(20000);
