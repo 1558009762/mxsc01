@@ -264,12 +264,19 @@
 		"dnu=tftpboot 0x61000000 u-boot.bin;\0"\
 		"CreateSystem=sf probe 0;sf erase 0x00100000 0x00a00000;sf write 0x61007fc0 0x00100000 0x00a00000;\0"\
 		"CreateRootfs=sf probe 0;sf erase 0x00b00000 0x00500000;sf write 0x62000000 0x00b00000 0x00500000;\0"\
+		"format=mtdparts delall;mtdparts default;saveenv; \
+nand erase.part kernel1;ubi part kernel1 4096;ubi create kernel1;ubi info 1; \
+nand erase.part kernel2; ubi part kernel2 4096;ubi create kernel2;ubi info 1; \
+nand erase.part application;ubi part application 4096;ubi create home;ubi info 1; \
+nand erase.part data;ubi part data 4096;ubi create data; ubi info 1;\0" \
 		"dnk=tftpboot 0x61007fc0 uImage;run CreateSystem;\0" \
 		"rfs=tftpboot 0x62000000 rootfs;run CreateRootfs;\0" \
 		"clrenv=sf probe 0;sf erase 0xc0000 0x10000;\0" \
 		"bootargs=initrd=0x62000040,0xd60000 root=/dev/ram0 console=ttyS0,115200n8 maxcpus=1 mem=480M\0" \
-		"bootker=bootm 0x1E100000 0x1Eb00000\0"  \
-		"ethaddr=00:1d:80:01:03:05\0" \   
+		"bootker=sf probe 0;sf read 0x61007fc0 0x00100000 0x00a00000;sf read 0x62000000 0x00b00000 0x00500000;bootm 0x61007fc0 0x62000000;\0" \
+		"bootcmd=run bootker\0" \
+		"ethaddr=00:1d:80:01:03:05\0" \
+		"eth1addr=00:1d:80:01:03:06\0" \
 		"ipaddr=192.168.10.123\0" \   
 		"serverip=192.168.10.1\0" \
 		"loadaddr=0x64000000\0" \
@@ -278,14 +285,14 @@
 /*
  * File system
  */
-#if 0
+#if 1
 #define CONFIG_CMD_UBI
 #define CONFIG_CMD_UBIFS
 #define CONFIG_RBTREE				1
 #define CONFIG_MTD_PARTITIONS
 #define CONFIG_LZO					1
-#define CONFIG_MTD_DEBUG
-#define CONFIG_MTD_DEBUG_VERBOSE	7
+//#define CONFIG_MTD_DEBUG
+//#define CONFIG_MTD_DEBUG_VERBOSE	7
 #endif
 /* SHA hashing */
 #define CONFIG_CMD_HASH
