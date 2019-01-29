@@ -472,8 +472,22 @@ etc_watchdog(etc_info_t *etc)
 		ethup |= 1<<etc->unit;
 	}
 
+	if(etc->unit == 1)
+	{
+        etc->linkstate = TRUE;
+	    etc->duplex = 1;
+    	etc->speed = 100;
+        /* keep emac txcontrol duplex bit consistent with current phy duplex */
+        (*etc->chops->duplexupd)(etc->ch);
+        if (!et_is_link_up(etc->et)) {
+            printk(KERN_DEBUG "%s rcan't access PHY, forcing link up\n", __FUNCTION__);
+            et_link_up(etc->et);
+        }
+        return;	
+	}
+
 #if defined(CONFIG_IPROC_SDK_MGT_PORT_HANDOFF)
-#if (defined(CONFIG_MACH_HX4)/* || defined(CONFIG_MACH_KT2)*/)
+#if (defined(CONFIG_MACH_HX4) || defined(CONFIG_MACH_KT2))
 	if ( !gmac_has_mdio_access()) {
         /* we can't monitor link so force link up */
         /* if GMAC does not have access to MDIO then exit */

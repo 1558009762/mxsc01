@@ -1357,7 +1357,8 @@ int linkstatus_change(int port,int speed,int status,int duplex)
         struct sk_buff * skb0 = NULL;
         struct nlmsghdr * nlhdr = NULL;
         int myspeed=0;
-        printk("port=%d speed=%d status=%d duplex=%d\n",port,speed,status,duplex);
+
+		//printk("port=%d speed=%d status=%d duplex=%d\n",port,speed,status,duplex);
         if(speed == 10)
                 myspeed = 1;
         else if(speed == 100)
