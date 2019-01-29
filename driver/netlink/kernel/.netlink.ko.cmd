@@ -1,0 +1,1 @@
+cmd_/home/work/share/mxsc-01/driver/netlink/kernel1/netlink.ko := arm-linux-ld -EL -r  -T /home/work/share/mxsc-01/kernel/linux-3.6.5/scripts/module-common.lds --build-id  -o /home/work/share/mxsc-01/driver/netlink/kernel1/netlink.ko /home/work/share/mxsc-01/driver/netlink/kernel1/netlink.o /home/work/share/mxsc-01/driver/netlink/kernel1/netlink.mod.o

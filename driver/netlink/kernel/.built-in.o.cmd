@@ -1,0 +1,1 @@
+cmd_/home/work/share/mxsc-01/driver/netlink/kernel1/built-in.o :=  rm -f /home/work/share/mxsc-01/driver/netlink/kernel1/built-in.o; arm-linux-ar rcsD /home/work/share/mxsc-01/driver/netlink/kernel1/built-in.o
