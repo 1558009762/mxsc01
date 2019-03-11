@@ -372,7 +372,7 @@ serdes_init(uint eth_num, uint speed)
 	serdes_id0 = serdes_get_id(eth_num, phyaddr, 0);
 	serdes_id1 = serdes_get_id(eth_num, phyaddr, 1);
 	serdes_id2 = serdes_get_id(eth_num, phyaddr, 2);
-	printf("%s phyaddr(0x%x) id0(0x%x) id1(0x%x) id2(0x%x)\n", __FUNCTION__, phyaddr, serdes_id0, serdes_id1, serdes_id2);
+	//printf("%s phyaddr(0x%x) id0(0x%x) id1(0x%x) id2(0x%x)\n", __FUNCTION__, phyaddr, serdes_id0, serdes_id1, serdes_id2);
 
 	/* get more ids */
 	serdes_id0 = serdes_rd_reg(eth_num, phyaddr, 2);

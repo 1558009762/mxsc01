@@ -592,7 +592,7 @@ etc_watchdog(etc_info_t *etc)
 					//		serdes_init(etc->unit, 1);
 					}
 					linkstatus_change(0, 0, etc->linkstate, 0);
-					//printk("link status change:%d,speed:%d duplex:%d\n",etc->linkstate,etc->speed,etc->duplex);
+					printk("link status change:%d,speed:%d duplex:%d\n",etc->linkstate,etc->speed,etc->duplex);
 			}
 #endif
 #ifdef CONFIG_SERDES_ASYMMETRIC_MODE
