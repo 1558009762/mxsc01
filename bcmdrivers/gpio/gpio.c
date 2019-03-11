@@ -1093,12 +1093,14 @@ void __init  iproc_gpiolib_add(struct iproc_gpio_chip *chip)
     }
     iproc_gpio_dev[dev] = chip;
     dev++;
+#if defined(CONFIG_MACH_SB2)
+
 	printk("\nset gpio7 irq\n");
 	unsigned int irq_gpio7 = chip->irq_base+chip->pin_offset+7;
 	iproc_gpio_dev[0]->irqcfg->set_type(irq_gpio7, IRQ_TYPE_EDGE_FALLING);
 	iproc_gpio_dev[0]->irqcfg->ack(irq_gpio7);
 	iproc_gpio_dev[0]->irqcfg->unmask(irq_gpio7);
-
+#endif
 }
 
 #ifdef POWERDOWN_ALARM
